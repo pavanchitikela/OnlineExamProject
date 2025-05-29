@@ -1,0 +1,36 @@
+
+<body *ngIf="!isLoggedIn">
+  <!--for main general login page -->
+  <div  class="container">
+    <mat-card >
+      <mat-card-header>
+        <mat-card-title style="text-align:center">User Login</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form >
+          <table cellspacing="10">
+            <tr>
+              <td>
+                <mat-form-field >
+                  <mat-label>User name</mat-label>
+                  <input matInput type="text" autofocus placeholder="ex. vishal"[(ngModel)]="userFromPage.username" name="username" required>
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <mat-form-field appearances="outline">
+                  <input matInput type="password" placeholder="Password"  [(ngModel)]="userFromPage.password" name="password" required>
+                </mat-form-field>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button  (click)="userValdation(userFromPage)" color="primary" class="btn-group" style="width:100%">Login</button>
+        <a Style="color:white;text-decoration: none" routerLink="/forgot-password">Forgot password</a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+ </body>

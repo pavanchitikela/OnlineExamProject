@@ -1,0 +1,160 @@
+drop table Property_Details CASCADE CONSTRAINTS;
+drop table Loan_Requirements CASCADE CONSTRAINTS;
+drop table Loan_Documents CASCADE CONSTRAINTS;
+drop table Tracking_details CASCADE CONSTRAINTS;
+drop table Sanctioned_Details CASCADE CONSTRAINTS;
+drop table admin_login CASCADE CONSTRAINTS;
+drop table application_details CASCADE CONSTRAINTS;
+drop table Personal_Details CASCADE CONSTRAINTS;
+drop table Employment_Details CASCADE CONSTRAINTS;
+
+
+CREATE TABLE
+Personal_Details	(
+emailId     varchar2(50),
+Fname	varchar2(15),
+Mname	varchar2(15),
+Lname	varchar2(15),
+Mobile	varchar2(11) not null,    /*max-length=10, min-length=10*/
+DOB	date,
+Gender	varchar2(11),
+Nationality	 varchar2(10),
+Aadhar	varchar2(12),
+PAN	varchar2(10),
+Password	varchar2(16),
+CONSTRAINT Personal_Details_PK PRIMARY KEY (emailId)
+);
+
+INSERT INTO Personal_Details VALUES ('A@B.COM','JOHN','ABHISHIKTH','K','7032220620','10-SEP-96','MALE','INDIAN','962896189618','APLQZ5624L','abhi@123');
+
+/*
+   CREATE TABLE
+   user_login	(
+   emailId 		varchar2(30),
+   Password 	varchar2(16) not null,	
+   Security_Ques	varchar2(40),
+   Security_Ans	varchar2(20) not null,
+   CONSTRAINT user_login_PK PRIMARY KEY (emailId),
+   CONSTRAINT user_login_FK FOREIGN KEY (emailId) REFERENCES Personal_Details (emailId)
+);
+*/	
+
+CREATE TABLE
+application_details	(
+emailId 		varchar2(50),     /*abhishikth.komaravalli@lntinfotech.com  - 1024*/
+applicationId 	NUMBER(5),
+CONSTRAINT application_details_PK PRIMARY KEY (applicationId),
+CONSTRAINT application_details_FK FOREIGN KEY (emailId) REFERENCES Personal_Details (emailId)
+);
+
+INSERT INTO application_details VALUES('A@B.COM',101);
+
+
+CREATE TABLE
+Employment_Details	(
+emailId                     varchar2(50),
+applicationId 	NUMBER(5),
+Monthly_Income	NUMBER(10,2),
+Employment_Type	varchar2(15),
+Retirement_age	NUMBER(2),
+Organisation_type	varchar2(15),
+Organisation_Name	varchar2(20),
+CONSTRAINT Employment_Details_FK FOREIGN KEY (applicationId) REFERENCES application_details (applicationId),
+CONSTRAINT Employment_Details_FK1 FOREIGN KEY (emailId) REFERENCES Personal_Details (emailId),
+CONSTRAINT Employment_Details_PK PRIMARY KEY (applicationId)
+);
+
+INSERT INTO Employment_Details VALUES('A@B.COM',101,30000,'SALARIED',60,'PRIVATE','LTI');
+
+
+CREATE TABLE
+Property_Details (
+applicationId 	NUMBER(5),
+Property_Location	varchar2(15),
+Property_Name	varchar2(15),
+Property_Cost	NUMBER(10,2),
+CONSTRAINT Property_Details_PK PRIMARY KEY (applicationId),
+CONSTRAINT Property_Details_FK FOREIGN KEY (applicationId) REFERENCES application_details (applicationId)
+);	
+
+INSERT INTO Property_Details VALUES(101,'MUMBAI','PALLAVI APPRT',5000000);
+
+
+CREATE TABLE
+Loan_Requirements	(
+applicationId  	NUMBER(5),
+Eligible_Amount	NUMBER(10,2),
+Required_Amount	NUMBER(10,2),
+Rate_of_Interest	NUMBER(5,3),
+Loan_Tenure	NUMBER(3),
+CONSTRAINT Loan_Requirements_PK PRIMARY KEY (applicationId),
+CONSTRAINT Loan_Requirements_FK FOREIGN KEY (applicationId) REFERENCES application_details (applicationId)
+);
+
+INSERT INTO Loan_Requirements VALUES (101, 1080000, 900000, 8.5, 10);
+
+CREATE TABLE
+Loan_Documents	(
+applicationId             NUMBER(5),
+aadhar 		varchar2(15),
+PAN		varchar2(15),
+VoterId		varchar2(15),
+LOA		varchar2(15),
+NOC_from_Builder  varchar2(15),
+Agrmnt_To_Sale	varchar2(15),
+CONSTRAINT Loan_Documents_PK PRIMARY KEY (applicationId),
+CONSTRAINT Loan_Documents_FK FOREIGN KEY (applicationId) REFERENCES application_details (applicationId)
+);
+
+CREATE TABLE
+Tracking_details (
+applicationId 	NUMBER(5),
+Status		varchar2(25),
+Application_Date	date,
+verification_date	date,
+Approved_Date	date,
+CONSTRAINT Tracking_details_PK PRIMARY KEY (applicationId),
+CONSTRAINT Tracking_details_FK FOREIGN KEY (applicationId) REFERENCES application_details (applicationId)
+);
+
+INSERT INTO Tracking_details VALUES (101, 'APPROVED', '28-NOV-20', '30-NOV-20','05-DEC-20');
+
+
+CREATE TABLE
+Sanctioned_Details (
+applicationId	NUMBER(5) unique,
+Account_No 	NUMBER(3),
+Sanctioned_Amount   NUMBER(10,2),
+EMI		NUMBER(8,2),
+Balance_Amount	NUMBER(10,2),
+CONSTRAINT Sanctioned_Details_PK PRIMARY KEY (Account_No),
+CONSTRAINT Sanctioned_Details_FK FOREIGN KEY (applicationId) REFERENCES application_details (applicationId)
+);
+/*  p X r X [(1+r)^n / (1+r)^n-1] */
+
+INSERT INTO Sanctioned_Details VALUES (101,909,900000,11159,900000);
+
+CREATE TABLE
+admin_login (
+adminId 	varchar2(10),
+password	varchar2(10),
+CONSTRAINT admin_login_PK PRIMARY KEY (adminId)
+);	
+
+commit;
+
+
+/*            Tracking using Application Id ( uses only 1 table)         */
+select * from TRACKING_DETAILS where  APPLICATIONID =101;
+
+/*            Tracking using email-id ( uses 2 tables)         */
+select APPLICATION_DETAILS.emailid,TRACKING_DETAILS.applicationid, TRACKING_DETAILS.status from APPLICATION_DETAILS , TRACKING_DETAILS where APPLICATION_DETAILS.APPLICATIONID = TRACKING_DETAILS.applicationid and APPLICATION_DETAILS.EMAILID ='A@B.COM';
+
+/*            tracking using PAN no. ( uses 3 tables)         */
+select APPLICATION_DETAILS.emailid,TRACKING_DETAILS.applicationid, TRACKING_DETAILS.status from APPLICATION_DETAILS , TRACKING_DETAILS where APPLICATION_DETAILS.APPLICATIONID = TRACKING_DETAILS.applicationid and APPLICATION_DETAILS.EMAILID=(select emailid from personal_details where pan='APLQZ5624L');
+
+
+
+
+
+

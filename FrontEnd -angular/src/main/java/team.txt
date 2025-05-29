@@ -1,0 +1,71 @@
+Paris	:	PersonalDetail 		6
+	10		EmploymentDetail	4
+			AdminLogin
+			
+						PersonalDetail
+					1			void insertPersonalDetail(PersonalDetail personalDetail);
+					2		    public List<PersonalDetail> getAllPersonalDetails();
+					3		    PersonalDetail getPersonalDetailEmail(String emailid);
+			left	4		    PersonalDetail getPersonalDetailAppID(int applicationid);
+					5		    void updatePersonalDetail(PersonalDetail personalDetail);
+					6		    void updatePersonalDetailPassword(String emailid, String password);
+						
+						EmploymentDetail	    
+					7		    void insertEmploymentDetail(EmploymentDetail employmentDetail);
+					8		    public List<EmploymentDetail> getAllEmploymentDetails();
+					9		    EmploymentDetail getEmploymentDetailEmail(String emailid);
+					10		    EmploymentDetail getEmploymentDetailAppID(int applicationid);
+						
+						AdminLogin
+								NO METHODs (TEST CASES FOR ADMIN LOGIN)
+
+								&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+Mit		: 	SanctionedDetail	3
+	7		PropertyDetail		2
+			LoanDocument		2
+			
+						Sanctioned Details
+					1			void insertSanctionedDetail(SanctionedDetail sanctionDetail);
+					2		    SanctionedDetail getSanctionedDetail(int applicationId);
+					3		    SanctionedDetail getSanctionedDetailByAccountNo(int AccountNo);
+			 
+						PropertyDetails
+					4			public PropertyDetail getPropertyDetailByApplicationId(int applicationId);
+					5			public void insertPropertyDetail (PropertyDetail propertyDetail);
+			 
+						Loan Document
+					6			public LoanDocument getLoanDocumentByApplicationId(int applicationId);
+					7			public void insertLoanDocument (LoanDocument loanDocument);
+
+
+
+								&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+								
+								
+John	: 	ApplicationDetail	5
+	13		LoanRequirement		3
+			TrackingDetail		5
+						
+						ApplicationDetail
+					1			public List<ApplicationDetail> 	getAllApplicationDetail(); 						
+					2			public List<ApplicationDetail> 	getApplicationDetailByEmail(String emailId);	
+					3			public ApplicationDetail 		getApplicationDetailByAppId(int applicationid);	
+					4			public void insertApplicationDetail(int appId, String emailId);					
+					5			public int	totalApplicationDetail();											
+				
+						LoanRequirement			
+					6			public List<LoanRequirement> getAllLoanRequirement();						
+					7			public LoanRequirement getLoanRequirement(int applicationId);				
+					8			public void addLoanRequirement(LoanRequirement loanRequirement, int appId);	
+			
+						TrackingDetail
+					9			public List<TrackingDetail> getAllTrackingDetail();									
+					10			public TrackingDetail 		getTrackingDetailByAppId(int applicationId);
+					11			public List<TrackingDetail> getStatusTrackingDetail(String status);
+					12			public void updateStatusTrackingDetail(int applicationId, String status);
+					13			public void insertTrackingDetail(TrackingDetail trackingDetail, int applicationId);
+			
+			
+			
+			

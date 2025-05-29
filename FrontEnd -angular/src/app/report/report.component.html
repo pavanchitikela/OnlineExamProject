@@ -1,0 +1,49 @@
+<body>
+    
+    
+    <div class="container">
+        <div class="header">Report Card</div>  <!-- for header -->
+        <mat-card  >
+            <mat-card-header>
+               
+                <div mat-card-avatar></div>
+                <mat-card-title>RESULT</mat-card-title>
+                <mat-card-subtitle>LEVEL {{myExamInfo.levelId}}</mat-card-subtitle> <!-- getting the level -->
+            </mat-card-header>
+            <mat-card-content>
+                <div>
+                  <table > 
+                    <tr>
+                        <td> NAME     </td>
+                        <td>: {{myUserInfo.username}}</td>
+                        
+                    </tr>
+                    <tr>
+                           <td> MARKS    </td>
+                           <td>: {{resultInfo.marks}}</td>
+                           
+                    </tr>
+                    <tr>
+                         <td> PERCENTAGE   </td>
+                         <td>: {{resultInfo.percentage}} %</td>
+                    </tr>
+                     <tr>
+                        <td> STATUS     </td>
+                         <td>: {{resultInfo.status}}</td>
+                    </tr>
+                  </table>
+                </div>
+           
+            </mat-card-content>
+        </mat-card>
+        <span > <!--for mat-card buttons -->
+            <mat-card-actions>
+
+                 <span> <button class="button_Another_exam" routerLink="/questions" style="margin-left:20px;background-color: rgb(98, 98, 214);"  *ngIf="nextLevelButton"   mat-raised-button>Next Level</button></span>
+                 <span class="button_Exit"> <button  routerLink="/home"  style="background-color: rgb(243, 118, 118);"   mat-raised-button>Exit</button></span>
+                 <span class="button_Exit"><button id="submitButton" (click)="retestFun()"  style="background-color:rgb(81, 190, 81)"  mat-raised-button> RETEST </button> </span>
+            </mat-card-actions>
+        </span>
+    </div>
+</body>
+

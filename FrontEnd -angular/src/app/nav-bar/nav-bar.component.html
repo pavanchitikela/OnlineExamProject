@@ -1,0 +1,47 @@
+<mat-toolbar style="background-color: black;"> <!-- color = black for color for top navigation bar -->
+  <mat-toolbar-row> <!-- For display menu in row format-->
+    <button mat-icon-button style="color: white;"> <!-- for defining the color of button -->
+      <mat-icon (click)="sidenav.toggle()">menu</mat-icon> <!-- toggle button for side bar-->
+    </button>
+    <span class="menu-spacer"></span>
+    <div style="color:white" > <!-- color for menu items-->
+      <a mat-raised-button [routerLink]="'/home'"  routerLinkActive="active" > <mat-icon>home</mat-icon>Home </a> <!-- routerLinkActive for showing the active button -->
+      <a mat-button [routerLink]="'/about'"  routerLinkActive="active" > About-us</a>
+      <a mat-button [routerLink]="'/newexam'"  routerLinkActive="active" >New Exam</a>
+      <a mat-button [routerLink]="'/admin'"  routerLinkActive="active" *ngIf="!isLoggedIn"> Admin-corner</a>
+      <span class="logs"> <!-- This div for user access based on login -->
+        <a mat-button [routerLink]="'/register'" routerLinkActive="active" *ngIf="!isLoggedIn" >Register </a>
+        <a mat-button [routerLink]="'/login'" routerLinkActive="active" *ngIf="!isLoggedIn"> Login </a>
+      </span>
+      <span >
+       <a style="float: right;" mat-button [matMenuTriggerFor]="beforeMenu"  style="margin-left: 1000px;" *ngIf="isLoggedIn" ><mat-icon>account_circle</mat-icon>  {{myUserInfo.username}}</a> <!-- for  user menu which is before menu  {{myUserInfo.username}}-->
+        <mat-menu #beforeMenu="matMenu" xPosition="before"> <!-- content will display before -->
+          <!-- <button mat-menu-item><mat-icon>photo_camera_front</mat-icon>profile</button> -->
+          <button mat-menu-item mat-button [routerLink]="'/home'"  (click)="logOutFun()"   color="accent"><mat-icon>logout</mat-icon>Logout</button>
+        </mat-menu></span>
+    </div>
+  </mat-toolbar-row>
+
+ 
+</mat-toolbar>
+<mat-sidenav-container> 
+  <mat-sidenav #sidenav> <!-- #sidenav for toggled the side nav where called form (click)="sidenav.toggle()  -->
+    <mat-nav-list > <!--for  side navigation list-->
+
+      <a mat-list-item [routerLink]="'/home'" > <mat-icon>home</mat-icon>Home </a>
+      <a mat-list-item  [routerLink]="'/about'" ><mat-icon>contacts</mat-icon> About-us</a>
+     
+      <a mat-list-item [routerLink]="'/login'" *ngIf="!isLoggedIn"><mat-icon>login</mat-icon> Login </a>
+      <a mat-list-item [routerLink]="'/register'" *ngIf="!isLoggedIn"><mat-icon>how_to_reg</mat-icon>Register </a>
+      
+      <a mat-list-item [routerLink]="'/admin'" *ngIf="!isLoggedIn"> <mat-icon>admin_panel_settings</mat-icon>Admin-corner</a>
+      <a mat-list-item (click)="sidenav.toggle()"  *ngIf="isLoggedIn" (click)="logOutFun()" href="'/home"  mat-list-item ><mat-icon>logout</mat-icon>Logout</a>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content> <!-- content will be display here  -->
+    <div style="height: 88vh;"> <!-- for setting  height of webpage-->
+      <router-outlet></router-outlet>  <!-- for displaying the componets -->
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

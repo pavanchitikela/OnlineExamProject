@@ -1,0 +1,39 @@
+body {
+  justify-content: center;
+  align-items: center;
+  
+}
+.container {
+  align-items: center;
+  background-image: url('/assets/img/proud.svg');
+  height: 120%;
+  width: auto;
+  justify-content: center;
+  background-repeat: no-repeat;
+  background-size: contain, cover;
+
+}
+  
+  .report{
+    margin: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    border-radius: 8px;
+    border: 1px solid rgb(45, 201, 240);
+    font-size: medium;
+  }
+  .newexam{
+    margin: 0;
+    font-size: medium;
+    position: absolute;
+    top: 36%;
+    left: 51%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    border-radius: 8px;
+    border: 1px solid rgb(235, 172, 27);
+    
+  }

@@ -1,0 +1,27 @@
+<body>
+    <div class="layout">
+        <br><br> <h2 style=" margin-left: 30px ;">{{tempQuestion.qsNo}}.{{tempQuestion.question}}</h2><hr><br>
+        <label class="container" style=" margin-left: 90px ;">{{tempQuestion.opta}}
+            <input id="opt1" type="radio" checked="checked" name="radio" name={{tempQuestion.qsNo}} (click)="radioChangeHandler($event)" value={{tempQuestion.opta}}>
+            <span class="checkmark"></span>
+          </label>
+          <label class="container" style=" margin-left: 90px ;">{{tempQuestion.optb}}
+            <input id="opt2" type="radio" checked="checked" name="radio" name={{tempQuestion.qsNo}} (click)="radioChangeHandler($event)" value={{tempQuestion.optb}}>
+            <span class="checkmark"></span>
+          </label>
+          <label class="container" style=" margin-left: 90px ;">{{tempQuestion.optc}}
+            <input id="opt3" type="radio" checked="checked" name="radio" name={{tempQuestion.qsNo}} (click)="radioChangeHandler($event)" value={{tempQuestion.optc}}>
+            <span class="checkmark"></span>
+          </label>
+          <label class="container" style=" margin-left: 90px ;">{{tempQuestion.optd}}
+            <input id="opt4" type="radio" checked="checked" name="radio" name={{tempQuestion.qsNo}} (click)="radioChangeHandler($event)" value={{tempQuestion.optd}}>
+            <span class="checkmark"></span>
+          </label> <br> <br>
+        <button style=" margin-left: 90px ;" class="button-submit" mat-raised-button color="primary" id="nextButton"  (click)="displayNextQuestion()">Next</button>
+        <input type="button" id="submitButton" value="SUBMIT" (click)="displayNextQuestion()" *ngIf="isLastQuestion"> 
+    </div>
+    <div class="level">
+        
+    </div>
+</body>
+

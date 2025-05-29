@@ -1,0 +1,54 @@
+<body *ngIf="!isLoggedIn">
+  <div class="container">
+    <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+      <mat-card class="box"  color="accent">
+        <mat-card-header>
+          <mat-card-title>Register</mat-card-title>
+        </mat-card-header>
+    
+        <form class="example-form">
+    
+          <mat-card-content>
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>user name</mat-label>
+              <input  [(ngModel)]="examuser.username" type="text" autofocus name = "username" matInput placeholder="ex. vishal">
+            </mat-form-field>
+    
+            <mat-form-field class="example-full-width">
+              <input [(ngModel)]="examuser.email" matInput placeholder="Email">
+            </mat-form-field>
+    
+            <mat-form-field class="example-full-width">
+              <input  [(ngModel)]="examuser.mobile" type="number" matInput placeholder="mobile">
+            </mat-form-field>
+            
+            <mat-form-field class="example-full-width">
+              <input [(ngModel)]="examuser.state" matInput placeholder="state">
+            </mat-form-field>
+  
+            <mat-form-field class="example-full-width">
+              <input  [(ngModel)]="examuser.city"  matInput placeholder="city">
+            </mat-form-field>
+  
+            <mat-form-field class="example-full-width">
+              <input  [(ngModel)]="examuser.qual" matInput placeholder="Qualification" type="text" name="qualification" required>
+            </mat-form-field>
+  
+            <mat-form-field class="example-full-width">
+              <input [(ngModel)]="examuser.yoc" matInput placeholder="Year of completion" type="number" name="year_of_completion" required>
+            </mat-form-field>
+  
+            
+            <mat-form-field class="example-full-width">
+              <input type=password [(ngModel)]="examuser.password" matInput placeholder="Password">
+            </mat-form-field>
+   
+          </mat-card-content>
+    
+            <button  (click)="addUser(examuser)" mat-stroked-button style="color: white;" class="btn-block">Register</button>
+    
+        </form>
+      </mat-card>
+    </div>
+  </div>
+</body>

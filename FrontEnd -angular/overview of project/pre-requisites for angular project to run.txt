@@ -1,0 +1,10 @@
+
+After replacing src into new angular project
+1.First we need to install Angular material 
+	Ø npm install --save @angular/material 
+	Ø ng add @angular/material  
+  choose first theme as your default - (indigo-pink )
+2.Install 
+	Ø npm i @angular/flex-layout
+3.Install ngx-countdown
+	Ø npm install ngx-countdown --save

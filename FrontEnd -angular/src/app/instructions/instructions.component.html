@@ -1,0 +1,29 @@
+<body>
+    <div class="container">
+        <div class="element">
+            <div class="header"><h1>Instructions</h1></div>
+                <div class="Instructions">
+                    <ol style="color: black;">
+                        <li>Make sure you have a good internet connection.</li>
+                        <li>All questions are compulsory.</li>
+                        <li>Try to submit the paper in 30 minutes.</li>
+                        <li>Avoid using the scroll button on your mouse if present.</li>
+                        <li>Each exam contains 3 levels,one should pass all the levels otherwise the exam will be submitted.</li>
+                        <li>Make sure you clicked on submit button to successfully complete the test.</li>
+                    </ol>
+                </div>
+        </div>
+        <span class="button">
+            <mat-card-actions>
+                <button  routerLink="/questions" mat-raised-button  ng-click="reset()" ng-disabled="!buttonEnabled" >proceed</button>
+            </mat-card-actions>
+            
+        </span>
+    </div>
+</body>
+<script>
+    $timeout(function() {
+   $scope.buttonEnabled = true;
+}, 50000);
+</script>
+

@@ -1,0 +1,318 @@
+DROP TABLE SESSION_INFO; 
+DROP TABLE EXAM_RESULT;
+DROP TABLE USER_OPTION;
+DROP TABLE QUESTION;
+DROP TABLE EXAM_LEVEL;
+DROP TABLE EXAM;
+DROP TABLE EXAM_USER;
+ 
+
+
+
+CREATE TABLE EXAM_USER(
+USER_ID NUMBER(5) PRIMARY KEY,
+USERNAME VARCHAR2(15) UNIQUE NOT NULL,
+EMAIL VARCHAR2(40) UNIQUE NOT NULL,
+MOBILE NUMBER(10),
+CITY VARCHAR2(15),
+STATE VARCHAR2(15),
+QUAL VARCHAR2(10),
+YOC NUMBER(4),
+PASSWORD VARCHAR2(20),
+RESET_PASSWORD_TOKEN VARCHAR2(30)
+);
+
+
+INSERT INTO EXAM_USER VALUES(101,'ramya','ramya123@gmail.com',9558659245,'bangalore','karnataka','btech',2020,'ramya@123','');
+INSERT INTO EXAM_USER VALUES(102,'pushyami','pushyami123@gmail.com',9568212345,'tanuku','Andhra pradesh','btech',2020,'pushyami%233','');
+INSERT INTO EXAM_USER VALUES(103,'kamala','kamala235@gmail.com',8956231470,'tadepalligudem','Andhra pradesh','btech',2020,'khnjk@12','');
+INSERT INTO EXAM_USER VALUES(104,'vishnu','vishnu859@gmail.com',9568231470,'nellore','Andhra pradesh','btech',2020,'vis789kiml','');
+INSERT INTO EXAM_USER VALUES(105,'pavan','pavan216@gmail.com',8810346572,'bhimavaram','Andhra pradesh','btech',2020,'pavankumar','');
+
+
+
+CREATE TABLE EXAM(
+ EXAM_ID  NUMBER(3) PRIMARY KEY,
+ EXAM_NAME VARCHAR2(10),
+ EXAM_DATE DATE,
+ IMAGE_URL VARCHAR2(80)
+);
+
+INSERT INTO EXAM VALUES(501,'Java','06-JAN-21','/assets/img/java.png');
+INSERT INTO EXAM VALUES(502,'Python','07-OCT-21','/assets/img/python.png');
+INSERT INTO EXAM VALUES(503,'C++','08-NOV-21','/assets/img/cplus.png');
+INSERT INTO EXAM VALUES(504,'.Net','09-FEB-21','/assets/img/net.png');
+INSERT INTO EXAM VALUES(505,'PHP','10-AUG-21','/assets/img/php.png');
+INSERT INTO EXAM VALUES(506,'SQL','11-MAR-21','/assets/img/sql.png');
+ 
+
+
+CREATE TABLE EXAM_LEVEL(
+LEVEL_ID NUMBER(1) PRIMARY KEY,
+TOTAL_QS NUMBER(2),
+DURATION  NUMBER(2),
+CUTOFF_MARKS NUMBER(2)
+);
+
+INSERT INTO EXAM_LEVEL VALUES(1,10,10,6);
+INSERT INTO EXAM_LEVEL VALUES(2,10,10,6);
+INSERT INTO EXAM_LEVEL VALUES(3,10,10,6);
+
+
+CREATE TABLE QUESTION(
+QUESTION_ID NUMBER(3) PRIMARY KEY,
+EXAM_ID NUMBER(3) REFERENCES EXAM(EXAM_ID),
+LEVEL_ID NUMBER(1) NOT NULL,
+QS_NO NUMBER(3),
+QUESTION VARCHAR2(200),
+OPTA VARCHAR2(80),
+OPTB VARCHAR2(80),
+OPTC VARCHAR2(80),
+OPTD VARCHAR2(80),
+CRCT_OPT VARCHAR2(80),
+CONSTRAINT QUESTION_LEVELID_FOREIGN_KEY FOREIGN KEY(LEVEL_ID) REFERENCES EXAM_LEVEL(LEVEL_ID));
+
+
+INSERT INTO QUESTION VALUES(1,501,1,1,'What is the return type of the hashCode() method in the Object class?','Object','int','long','void','int');
+INSERT INTO QUESTION VALUES(2,501,1,2,'Which package contains the Random class?','java.util','java.lang','java.awt','java.io','java.util');
+INSERT INTO QUESTION VALUES(3,501,1,3,'Which of the following is a marker interface?','Remote interface','Readable interface','Runnable interface','Result interface','Remote interface');
+INSERT INTO QUESTION VALUES(4,501,1,4,'Which of the following is a reserved keyword in Java?','strictfp','main','object','system','strictfp');
+INSERT INTO QUESTION VALUES(5,501,1,5,'Which of the following is not a Java features?','Dynamic','Architecture Neutral','Use of pointers','Object-oriented','Use of pointers');
+INSERT INTO QUESTION VALUES(6,501,1,6,'Which of the following is true about the anonymous inner class?','It has only methods','Objects cannot be created','It has no class name','none','It has no class name');
+INSERT INTO QUESTION VALUES(7,501,1,7,'To successfully overload a method in Java, the method names must be?','Same','Different','Same or different','none','Same');
+INSERT INTO QUESTION VALUES(8,501,1,8,'Which keyword is used for accessing the features of a package?','package','import','extends','export','import');
+INSERT INTO QUESTION VALUES(9,501,1,9,'In java, jar stands for?','Java Application Runner','Java Archive Runner','Java Application Resource','none','none');
+INSERT INTO QUESTION VALUES(10,501,1,10,'What is the initial quantity of the ArrayList list?','5','10','0','100','10');
+INSERT INTO QUESTION VALUES(11,501,2,1,'In which process, a local variable has the same name as one of the instance variables?','Serialization','Variable Shadowing','Abstraction','Multi-threading','Variable Shadowing');
+INSERT INTO QUESTION VALUES(12,501,2,2,'Which is used to find and fix bugs in the Java programs?','JVM','JRE','JDK','JDB','JDB');
+INSERT INTO QUESTION VALUES(13,501,2,3,'Java method overloading implements the OOPS concept ','Inheritance',' Polymorphism','Encapsulation','NONE','Polymorphism');
+INSERT INTO QUESTION VALUES(14,501,2,4,'What do you mean by chained exceptions?','Exceptions occurred by the VirtualMachineError','An exception caused by other exceptions','Both','None','An exception caused by other exceptions');
+INSERT INTO QUESTION VALUES(15,501,2,5,'In which memory a String is stored, when we create it using New operator?','Stack','String memory','Heap memory','none','Heap memory');
+INSERT INTO QUESTION VALUES(16,501,2,6,'What is the use of the intern() method?','It returns the existing string from memory','It creates a new string in the database','It modifies the existing string in the database','none','It returns the existing string from memory');
+INSERT INTO QUESTION VALUES(17,501,2,7,'Which of the following is a mutable class in java?','java.lang.String','java.lang.Byte','java.lang.Short','java.lang.StringBuilder','java.lang.StringBuilder');
+INSERT INTO QUESTION VALUES(18,501,2,8,'If a thread goes to sleep','It releases all the locks it has.','It does not releases locks','It releases half of its locks.','none','It does not releases locks');
+INSERT INTO QUESTION VALUES(19,501,2,9,'How many threads can be executed at a time?','only one','multiple','two threads','none','multiple');
+INSERT INTO QUESTION VALUES(20,501,2,10,'Which of these classes are the direct subclasses of the Throwable class?','RuntimeException and Error class','Exception and VirtualMachineError class','Error and Exception class','none','Error and Exception class');
+INSERT INTO QUESTION VALUES(21,501,3,1,'Which is the overloaded static method of Math class to get absolute value in Java?','Math.abs(int)','Math.abs(float)','Math.abs(double)','All of above','All of above');
+INSERT INTO QUESTION VALUES(22,501,3,2,'Which of the following is an immediate subclass of the Panel class?','Applet class','Window class','Frame class','Dialog class','Applet class');
+INSERT INTO QUESTION VALUES(23,501,3,3,'Garbage Collection is manual process','True','False','both','None','False');
+INSERT INTO QUESTION VALUES(24,501,3,4,'In an instance method or a constructor, "this" is a reference to the current object','True','False','Both','None','True');
+INSERT INTO QUESTION VALUES(25,501,3,5,'Which option is false about the final keyword?','A final method cannot be overridden in its subclasses.','A final class cannot be extended.','A final class cannot extend other classes.','A final method can be inherited.','A final class cannot extend other classes.');
+INSERT INTO QUESTION VALUES(26,501,3,6,'What is the use of \w in regex?','Used for a whitespace character','Used for a non-whitespace character','Used for a word character','Used for a non-word character','Used for a word character');
+INSERT INTO QUESTION VALUES(27,501,3,7,'What is meant by the classes and objects that dependents on each other?','TightCoupling','Cohesion','LooseCoupling','none','TightCoupling');
+INSERT INTO QUESTION VALUES(28,501,3,8,'What is the default encoding for an OutputStreamWriter?','UTF-8','UTF-12','Default encoding of the host platform','none','Default encoding of the host platform');
+INSERT INTO QUESTION VALUES(29,501,3,9,'Which of the following is a valid long literal?','ABH8097','L990023','908845762','0xnf029L','0xnf029L');
+INSERT INTO QUESTION VALUES(30,501,3,10,'What should be the execution order, if a class has a method, static block, instance block, and constructor?','Instance block, method, static block, and constructor','Method, constructor, instance block, and static block','Static block, instance block, constructor, and method','none','Static block, instance block, constructor, and method');
+
+INSERT INTO QUESTION VALUES(31,502,1,1,'Who developed the Python language?','Zim Den','Guido van Rossum','Niene Stom','Wick van Rossum','Guido van Rossum');
+INSERT INTO QUESTION VALUES(32,502,1,2,'What is the maximum possible length of an identifier?','16','32','64','None of these above','None of these above');
+INSERT INTO QUESTION VALUES(33,502,1,3,'In which year was the Python language developed?','1995','1972','1981','1989','1989');
+INSERT INTO QUESTION VALUES(34,502,1,4,'In which language is Python written?','English','PHP','C','All of the above','C');
+INSERT INTO QUESTION VALUES(35,502,1,5,'Which one of the following is the correct extension of the Python file?','.py','.python','.p','None of these','.py');
+INSERT INTO QUESTION VALUES(36,502,1,6,'In which year was the Python 3.0 version developed?','2008','2000','2010','2005','2008');
+INSERT INTO QUESTION VALUES(37,502,1,7,'What do we use to define a block of code in Python language?','Key','Brackets','Indentation','None of these','Indentation');
+INSERT INTO QUESTION VALUES(38,502,1,8,'Which character is used in Python to make a single line comment?','/','//','#','!','#');
+INSERT INTO QUESTION VALUES(39,502,1,9,'Which of the following statements is correct regarding the object-oriented programming concept in Python?','Classes are real-world entities while objects are not real','Objects are real-world entities while classes are not real','Both objects and classes are real-world entities','All of the above','Objects are real-world entities while classes are not real');
+INSERT INTO QUESTION VALUES(40,502,1,10,'Which of the following option is not a core data type in the python language?','Dictionary','Lists','Class','All of the above','Class');
+INSERT INTO QUESTION VALUES(41,502,2,1,'What is the method inside the class in python language?','Object','Function','Attribute','Argument','Function');
+INSERT INTO QUESTION VALUES(42,502,2,2,'Which of the following declarations is incorrect?','_x = 2','__x = 3','__xyz__ = 5','None of these','None of these');
+INSERT INTO QUESTION VALUES(43,502,2,3,'Why does the name of local variables start with an underscore discouraged?','To identify the variable','It confuses the interpreter','It indicates a private variable of a class','None of these','It indicates a private variable of a class');
+INSERT INTO QUESTION VALUES(44,502,2,4,'Which of the following is not a keyword in Python language?','val','raise','try','with','val');
+INSERT INTO QUESTION VALUES(45,502,2,5,'Which of the following statements is correct for variable names in Python language?','All variable names must begin with an underscore.','Unlimited length','The variable name length is a maximum of 2.','All of the above','Unlimited length');
+INSERT INTO QUESTION VALUES(46,502,2,6,'Which of the following declarations is incorrect in python language?','xyzp = 5,000,000','x y z p = 5000 6000 7000 8000','x,y,z,p = 5000, 6000, 7000, 8000','x_y_z_p = 5,000,000','x y z p = 5000 6000 7000 8000');
+INSERT INTO QUESTION VALUES(47,502,2,7,'Which of the following declarations is incorrect in python language?','_val','val','try','_try_','try');
+INSERT INTO QUESTION VALUES(48,502,2,8,'Which of the following operators is the correct option for power(ab)?','a ^ b','a**b','a ^ ^ b','a ^ * b','a**b');
+INSERT INTO QUESTION VALUES(49,502,2,9,'Which of the following precedence order is correct in Python?','Parenthesis, Exponential, Multiplication, Division, Addition, Subtraction','Multiplication, Division, Addition, Subtraction, Parenthesis, Exponential','Division, Multiplication, Addition, Subtraction, Parenthesis, Exponential','Exponential, Parenthesis, Multiplication, Division, Addition, Subtraction','Parentheses, Exponenial, Multiplication, Division, Addition, Subtraction');
+INSERT INTO QUESTION VALUES(50,502,2,10,'Which one of the following has the same precedence level?','Division, Power, Multiplication, Addition and Subtraction','Division and Multiplication','Subtraction and Division','Power and Division','Division and Multiplication');
+INSERT INTO QUESTION VALUES(51,502,3,1,'Which one of the following has the highest precedence in the expression?','Division','Subtraction','Power','Parenthesis','Parenthesis');
+INSERT INTO QUESTION VALUES(52,502,3,2,'Which of the following functions is a built-in function in python language?','val()','print()','printlg()','None of these','print()');
+INSERT INTO QUESTION VALUES(53,502,3,3,'Study the following function: round(4.576).. What will be the output of this function?','4','5','4.5','4.6','5');
+INSERT INTO QUESTION VALUES(54,502,3,4,'What will be the output of the following code : print type(type(int))','type ''int''','type ''type''','Error','0','type ''int''');
+INSERT INTO QUESTION VALUES(55,502,3,5,'What is the output of the following code : line1. L = [''a'',''b'',''c'',''d'']  line2. print("".join(L))','Error','None','abcd','[''a'',''b'',''c'',''d'']','abcd');
+INSERT INTO QUESTION VALUES(56,502,3,6,'What is the output of the following segment : chr(ord(''A''))','A','a','B','Error','A');
+INSERT INTO QUESTION VALUES(57,502,3,7,'Which of the following is not a complex number?','k=2+3j','k=complex(2,3)','k=2+3I','k=2+3J','k=2+3I');
+INSERT INTO QUESTION VALUES(58,502,3,8,'What does ~~~~~~5 evaluate to?','+5','-5','+11','-11','+5');
+INSERT INTO QUESTION VALUES(59,502,3,9,'What data type is the object below ? L = [1, 23, ''hello'', 1]','List','Dictionary','Tuple','Array','List');
+INSERT INTO QUESTION VALUES(60,502,3,10,'time.time() returns ________','the current time in milliseconds since midnight, January 1,1971 GMT','the current time in milliseconds','the current time in milliseconds since midnight, January 1,1970 GMT','the current time in milliseconds since midnight, January 1,1972 GMT','the current time in milliseconds since midnight, January 1,1970 GMT');
+
+INSERT INTO QUESTION VALUES(61,503,1,1,'Which of the following is the address operator?','@','#','&','%','&');
+INSERT INTO QUESTION VALUES(62,503,1,2,'The C++ language is ______ object-oriented language.','Pure Object oriented','Not Object oriented','Semi Object-oriented or Partial Object-oriented','None of the above','Semi Object-oriented or Partial Object-oriented');
+INSERT INTO QUESTION VALUES(63,503,1,3,'Which of the following is the correct syntax for declaring the array?','init array []','int array [5];','Array[5];','None of the above','int array [5]');
+INSERT INTO QUESTION VALUES(64,503,1,4,'How many types of elements can an array store?','Same types of elements','Char and int type','Only char types','All of the above','Same types of elements');
+INSERT INTO QUESTION VALUES(65,503,1,5,'Which of the following comment syntax is correct to create a single-line comment in the C++ program?','//Comment','/Comment/','Comment//','None of the above','//Comment');
+INSERT INTO QUESTION VALUES(66,503,1,6,'C++ is a ___ type of language?','High-level Language','Low-level language','Middle-level language','None of the above','Middle-level language');
+INSERT INTO QUESTION VALUES(67,503,1,7,'Which of the following refers to characteristics of an array?','An array is a set of similar data items','An array is a set of distinct data items','An array can hold different types of datatypes','None of the above','An array is a set of similar data items');
+INSERT INTO QUESTION VALUES(68,503,1,8,'Which of the following is used for implementing the late binding?','Operator Functions','Constant Functions','Virtual Function','Both A and B','Virtual Function');
+INSERT INTO QUESTION VALUES(69,503,1,9,'Which of the following is not a kind of inheritance?','Distributed','Multi-level','Multiple','Hierarchal','Distributed');
+INSERT INTO QUESTION VALUES(70,503,1,10,'Which one of the following cannot be used with the virtual keyword?','Constructor','Destructor','Member function','None of the above','Constructor');
+INSERT INTO QUESTION VALUES(71,503,2,1,'Which one of the following cannot be a friend in C++ languages?','A Class','A Function','An Object','None of the above','An Object');
+INSERT INTO QUESTION VALUES(72,503,2,2,'Which of the following refers to the wrapping of data and its functionality into a single individual entity?','Modularity','Abstraction','Encapsulation','None of the above','Encapsulation');
+INSERT INTO QUESTION VALUES(73,503,2,3,'How to access and edit data in data file handling using structures','read()','write()','both A and B','without read()','both A and B');
+INSERT INTO QUESTION VALUES(74,503,2,4,'Can we overload functions in C++?','Yes','No','Compilation Error','Runtime Error','Yes');
+INSERT INTO QUESTION VALUES(75,503,2,5,'Can we typecast void * into int *?','Yes','No','Undefined','Depends on Compiler','Yes');
+INSERT INTO QUESTION VALUES(76,503,2,6,'Which operator has more precedance  in below list?','+','-','++','*','++');
+INSERT INTO QUESTION VALUES(77,503,2,7,'Which operator can not be overloaded?','+','-','*','::','::');
+INSERT INTO QUESTION VALUES(78,503,2,8,'Which types of arrays are always considered as linear arrays?','Single-dimensional','Multi-dimensional','Both A and B','None of the above','Single-dimensional');
+INSERT INTO QUESTION VALUES(79,503,2,9,'Which of the following statements is correct about the class?','An object is the instance of the data type of that class','A class is an instance of its object','An object is the instance of the data type of that class','Both A and C','An object is an instance of its class');
+INSERT INTO QUESTION VALUES(80,503,2,10,'In C++,it is possible that in a ''class'' there can more than one destructor like the constructor?','Yes, it is possible','No,it not possible at all','Both A and B','None of the above','No,it not possible at all');
+INSERT INTO QUESTION VALUES(81,503,3,1,'In C++,it is true that a destructor can be virtual?','No, not at all','Yes,it is true','It may or may not be','None of the above','Yes,it is true');
+INSERT INTO QUESTION VALUES(82,503,3,2,'Inside a structure the declared data members are known as____','Data','Object','Members','None of the above','Members');
+INSERT INTO QUESTION VALUES(83,503,3,3,'Which of the following is the correct syntax to add the header file in the C++ program?','#include<userdefined>','#include "userdefined.h"','<include> "userdefined.h"','Both A and B','Both A and B');
+INSERT INTO QUESTION VALUES(84,503,3,4,'______ function is used to allocate space for array in memory.','malloc()','realloc()','alloc()','calloc()','calloc()');
+INSERT INTO QUESTION VALUES(85,503,3,5,'A ponter pointing to a variable that is not initialized is called?','Void Pointer','Empty Pointer','Null Pointer','Wild Pointer','Null Pointer');
+INSERT INTO QUESTION VALUES(86,503,3,6,'Which of the following is the correct identifier?','$var_name','VAR_123','varname@','None of the above','VAR_123');
+INSERT INTO QUESTION VALUES(87,503,3,7,'In CPP,members of a class are ______ by default','Public','Private','Protected','Static','Private');
+INSERT INTO QUESTION VALUES(88,503,3,8,'To perfor file input / output operation in C++,we must include which header file?','<ifstream>','<fstream>','<ofstream>','<fiostream>','<fstream>');
+INSERT INTO QUESTION VALUES(89,503,3,9,'An exceptio in C++ can be generated using which keywords.','thrown','threw','throw','throws','throw');
+INSERT INTO QUESTION VALUES(90,503,3,10,'In C++ Program,inline fuctions are expanded during?','Run Time','Compile Time','Debug Time','Coding Time','Run Time');
+
+INSERT INTO QUESTION VALUES(91,504,1,1,'A variable which is declared inside a method is called a________variable?','Serial','Private','Local','Static','Local');
+INSERT INTO QUESTION VALUES(92,504,1,2,'An Event has _____ as default return type?','No return type for events','Double','Integer','String','String');
+INSERT INTO QUESTION VALUES(93,504,1,3,'This view is not present in VB.NET','Solution Explorer','Server Explorer','Project Explorer','None of the above','Project Explorer');
+INSERT INTO QUESTION VALUES(94,504,1,4,'________ converts to long datatype','Lng','CLng','None of the above','Clong','CLng');
+INSERT INTO QUESTION VALUES(95,504,1,5,'The default event handler of TextBox is','TextChanged','KeyPress','Changed','Validating','TextChanged');
+INSERT INTO QUESTION VALUES(96,504,1,6,'To make a button the default button,this property of the form must be set','DefaultButton','None of the above','DialogResult','AcceptButton','AcceptButton');
+INSERT INTO QUESTION VALUES(97,504,1,7,'The SelectionMode property of a CheckedList Box can be set only to','One','MultiSimple','MultiExtended','None of the abvove','One');
+INSERT INTO QUESTION VALUES(98,504,1,8,'FolderBrowserDialog displays','File','Folder','Drives','b and c','b and c');
+INSERT INTO QUESTION VALUES(99,504,1,9,'To use HelpProvider,the following properties of the form needs to be set','HelpButton','MaximizeBox','MinimizeBox','All of the above','All of the above');
+INSERT INTO QUESTION VALUES(100,504,1,10,'Data from DataSet is accessed using34','Binding Object','BindContext Object','BindingContext Object','EndCurrentEdit Object','BindingContext Object');
+INSERT INTO QUESTION VALUES(101,504,2,1,'In ADODB the _____________ property is used to connect to the table','RecordSet','DataSource','Connection','RecordSource','RecordSet');
+INSERT INTO QUESTION VALUES(102,504,2,2,'Using MyBase you can call base class','Constructor','Method','C Variables','All of the above','All of the above');
+INSERT INTO QUESTION VALUES(103,504,2,3,'This view pops up if "Ctrl+F1" is pressed',' Help','Properties Window','Dynamic Help','Server Explorer','Dynamic Help');
+INSERT INTO QUESTION VALUES(104,504,2,4,'A MsgBox can have maximum ___________ button(s)','1','2','3','4','3');
+INSERT INTO QUESTION VALUES(105,504,2,5,'Which of the following is a true about Object in VB.NET?','Object variable size is 4 bytes on 32-bit platform','Object variable size is 8 bytes on 64-bit platform','Any type can be stored in a variable of type Object','All of the above','All of the above');
+INSERT INTO QUESTION VALUES(106,504,2,6,'ScrollBars can be added to','Panel','GroupBox','Both a and b','None of the above','Panel');
+INSERT INTO QUESTION VALUES(107,504,2,7,'In reports ___________ property help to assign user-defined criteria','SelectionFormula','Query','SectionFormula','ReportSource','SelectionFormula');
+INSERT INTO QUESTION VALUES(108,504,2,8,'In ListView the item that is currently selected is determined by','SelectedItem','Item','FocussedItem','GetSelected','FocussedItem');
+INSERT INTO QUESTION VALUES(109,504,2,9,'The default location of the exe file of your solution is','.../Project folder name/Debug','.../Project folder name/Bin','.../Project folder name/Debug/Bin','..../Project folder name','.../Project folder name/Bin');
+INSERT INTO QUESTION VALUES(110,504,2,10,'Which of the following utilities can be used to compile managed assemblies into processor-specific native code?','ngen','gacutil','sn','dumpbin','ngen');
+INSERT INTO QUESTION VALUES(111,504,3,1,'You can have only one Global.asax file per project?','Yes','No','Both','None','Yes');
+INSERT INTO QUESTION VALUES(112,504,3,2,'_____ is a special sub folder within the windows folder that stores the shared .NET component?','/bin','GAC','Root','All of above','GAC');
+INSERT INTO QUESTION VALUES(113,504,3,3,'Which of the following is the performance attributes of processModel?','maxWorkerThreads','maxIdThreads','requestQueue limit','All of above','All of above');
+INSERT INTO QUESTION VALUES(114,504,3,4,'Which of the following is faster and consume lesser memory?','Data Set','SQLDataReader','Both A and B','None of the above','Data Set');
+INSERT INTO QUESTION VALUES(115,504,3,5,'Which of the following is the way to monitor the web application?','Alerts Snap-ins','Performance logs','MMC Event viewers','All of the above','All of the above');
+INSERT INTO QUESTION VALUES(116,504,3,6,'The _______ property affects how the .Net Framework handles dates, currencies,sorting and formatting issues?','CurrentUICulture','CurrentCulture','Both A and B','None of the above','CurrentUICulture');
+INSERT INTO QUESTION VALUES(117,504,3,7,'Where do we include the user lists for windows authentication?','Credential','authentication','identity','authorization','authentication');
+INSERT INTO QUESTION VALUES(118,504,3,8,'Where do we include the user lists for Form authentication?','Credential','authentication','authorization','Identity','authentication');
+INSERT INTO QUESTION VALUES(119,504,3,9,'Which of the following authentication is best suited for a corporate network?','Windows','Form','User','All','Form');
+INSERT INTO QUESTION VALUES(120,504,3,10,'What Is CLR?','Common language runtime','Compiler language runtime','Compiler library runtime','Common library runtime','Common language runtime');
+
+INSERT INTO QUESTION VALUES(121,505,1,1,' Which of the following type of variables have only two possible values either true or false?','Integer','Boolean','Strings','Boubles','Booleans');
+INSERT INTO QUESTION VALUES(122,505,1,2,'Which of the following magic constant of PHP returns full path and filename of the file?','_LINE_','_FILE_','_FUNCTION_','_CLASS_','_FILE_');
+INSERT INTO QUESTION VALUES(123,505,1,3,'Which of the following array represents an array containing one or more arrays?','Numeric Array','Associative Array','Multidimentional Array','None of the above1','Multidimentional Array');
+INSERT INTO QUESTION VALUES(124,505,1,4,'Which of the following function creates an array?','array()','array_change_key_case()','array chunk()','array_count_values()','array()');
+INSERT INTO QUESTION VALUES(125,505,1,5,'PHP files have a default file extension of____','.html','.xml','.php','.ph','.php');
+INSERT INTO QUESTION VALUES(126,505,1,6,'What should be the correct syntax to write a PHP code?','<php>','<?php?>','<??>','<?php?>','<??>');
+INSERT INTO QUESTION VALUES(127,505,1,7,'Which version of PHP introduced Try/catch Exception?','PHP 4','PHP 5','PHP 6','PHP 5 and later','PHP 5 and later');
+INSERT INTO QUESTION VALUES(128,505,1,8,'Type Hinting was introduced in which version of PHP?','PHP 4',' PHP 5','PHP 5.3','PHP 6','PHP 5');
+INSERT INTO QUESTION VALUES(129,505,1,9,'A function in PHP which starts with __ (double underscore) is known as __________','Magic Function','Inbuilt Function','Default Funtion','User Defined Funtion','Magic Function');
+INSERT INTO QUESTION VALUES(130,505,1,10,'PHPs numerically indexed array begin with position ___________','1','2','-1','0','0');
+INSERT INTO QUESTION VALUES(131,505,2,1,' The practice of creating objects based on predefined classes is often referred to as _____________','class creation','object creation','object instantiation','class instantiation','class instantiation');
+INSERT INTO QUESTION VALUES(132,505,2,2,'Which one of the following property scopes is not supported by PHP?','friendly','final','public','static','friendly');
+INSERT INTO QUESTION VALUES(133,505,2,3,'Which one of the following can be used to instantiate an object in PHP assuming class name to be Foo?','$obj = new $foo;','$obj = new foo;','$obj = new foo();','obj = new foo();','$obj = new foo();');
+INSERT INTO QUESTION VALUES(134,505,2,4,'Which one of the following is the right way to define a constant?','constant PI=3.1415;','constant $PI=3.1415;','constant PI=3.1415;','const PI=3.1415;','const PI=3.1415;');
+INSERT INTO QUESTION VALUES(135,505,2,5,'Which version of PHP introduced the advanced concepts of OOP?','PHP 4','PHP 5','PHP 5.3','PHP 6','PHP 5');
+INSERT INTO QUESTION VALUES(136,505,2,6,'Which method is used to tweak an objects cloning behavior?','clone()','__clone()','_clone','object_clone()','_clone()');
+INSERT INTO QUESTION VALUES(137,505,2,7,'Which magic method is used to implement overloading in PHP?','__call','__invoke','__wakeup','__unset','_call');
+INSERT INTO QUESTION VALUES(138,505,2,8,'How many error levels are available in PHP?','14','15','16','17','16');
+INSERT INTO QUESTION VALUES(139,505,2,9,'Which version of PHP introduced E_STRICT Error level?','PHP 4','PHP 5','PHP 5.2','PHP 5.3', 'PHP 5.2');
+INSERT INTO QUESTION VALUES(140,505,2,10,'Which character does the error_reporting directive use to represent the logical operator NOT?','/','!','~','^','~');
+INSERT INTO QUESTION VALUES(141,505,3,1,'Which of the following is not specialized keywords in exception handling.','try','catch','throw','this','this');
+INSERT INTO QUESTION VALUES(142,505,3,2,'What is the description of Error level E_ERROR?','Fatal run-time error','Near-fatal errror','Compile-time error','Fatal Compile-time error','Fatal run-time error');
+INSERT INTO QUESTION VALUES(143,505,3,3,'Which of the following is not a Built-in String functions in php?','strlen()','str_replace()','strpos()','strreverse()','strreverse()');
+INSERT INTO QUESTION VALUES(144,505,3,4,'Why trim() function is used in php?','to remove whitespaces','to remove lowercase alphabet','to remove uppercase alphabet','to remove underscore','to remove whitespaces');
+INSERT INTO QUESTION VALUES(145,505,3,5,'The ________ function compares the two strings s1 and s2, ignoring the case of the characters.','strtolower()','toLowerCase()','strcasecmp()','lc()','strcasecmp()');
+INSERT INTO QUESTION VALUES(146,505,3,6,'Objects are also known as ______.','reference','template','class','instances','instances');
+INSERT INTO QUESTION VALUES(147,505,3,7,'Object are created using ____ keyword?','create','object','new','None of the above','new');
+INSERT INTO QUESTION VALUES(148,505,3,8,'A member function typically accesses members of _____ object only','current','previous','next','All of the above','current');
+INSERT INTO QUESTION VALUES(149,505,3,9,'Constructor is also called ____ function','find','key','automatic','magic','magic');
+INSERT INTO QUESTION VALUES(150,505,3,10,'PHP recognizes constructors by the name.','classname()','_construct()','function_construct()','functon__construct()','function__construct()');
+
+
+INSERT INTO QUESTION VALUES(151,506,1,1,'What does SQL stand for?','Structured Query Language','Structured Question Language','Strong Question Language','Strong Question Links','Structured Query Language');
+INSERT INTO QUESTION VALUES(152,506,1,2,'Which SQL statement is used to extract data from a database?','SELECT','.GET','EXTRACT','OPEN','SELECT');
+INSERT INTO QUESTION VALUES(153,506,1,3,'Which SQL statement is used to update data in a database?','UPDATE','MODIFY','SAVE','SAVE AS','UPDATE');
+INSERT INTO QUESTION VALUES(154,506,1,4,'Which SQL statement is used to delete data from a database?','DELETE','REMOVE','COLLAPSE','DESTROY','DELETE');
+INSERT INTO QUESTION VALUES(155,506,1,5,'Which SQL statement is used to insert new data in a database?','INSERT INTO','ADD RECORD','ADD NEW','INSERT NEW','INSERT INTO');
+INSERT INTO QUESTION VALUES(156,506,1,6,'With SQL, how do you select a column named "FirstName" from a table named "Persons"?','EXTRACT FirstName FROM Persons','SELECT FirstName FROM Persons','SELECT *.Persons','SELECT [all] FROM Persons','SELECT FirstName FROM Persons');
+INSERT INTO QUESTION VALUES(157,506,1,7,'With SQL, how do you select all the columns from a table named "Persons"?','SELECT * FROM Persons','SELECT Persons','SELECT *.Persons','SELECT [all] FROM Persons','SELECT * FROM Persons');
+INSERT INTO QUESTION VALUES(158,506,1,8,'With SQL, how do you select all the records from a table named "Persons" where the value of the column "FirstName" is "Peter"?','SELECT * FROM Persons WHERE FirstName="Peter"','SELECT * FROM Persons WHERE FirstName<>"Peter"','SELECT [all] FROM Persons WHERE FirstName="Peter"','SELECT [all] FROM Persons WHERE FirstName LIKE "Peter"','SELECT * FROM Persons WHERE FirstName="Peter"');
+INSERT INTO QUESTION VALUES(159,506,1,9,'With SQL, how do you select all the records from a table named "Persons" where the value of the column "FirstName" starts with an "a"?','SELECT * FROM Persons WHERE FirstName="%a%"','SELECT * FROM Persons WHERE FirstName LIKE "a%"','SELECT * FROM Persons WHERE FirstName LIKE "%a"','SELECT * FROM Persons WHERE FirstName="a"','SELECT * FROM Persons WHERE FirstName LIKE "a%"');
+INSERT INTO QUESTION VALUES(160,506,1,10,'The OR operator displays a record if ANY conditions listed are true.The AND operator displays a record if ALL of the conditions listed are true','TRUE','FALSE','CANT PREDICT','NONE','TRUE');
+INSERT INTO QUESTION VALUES(161,506,2,1,'With SQL, how do you select all the records from a table named "Persons" where the "FirstName" is "Peter" and the "LastName" is "Jackson"?','SELECT * FROM Persons WHERE FirstName="Peter" AND LastName="Jackson"','SELECT FirstName="Peter" LastName="Jackson" FROM Persons','SELECT * FROM Persons WHERE FirstName<>"Peter" AND LastName<>"Jackson"','SELECT * FROM Persons in FirstName<>"Peter" AND LastName<>"Jackson"','SELECT * FROM Persons WHERE FirstName="Peter" AND LastName="Jackson"');
+INSERT INTO QUESTION VALUES(162,506,2,2,'With SQL, how do you select all the records from a table named "Persons" where the "LastName" is alphabetically between (and including) "Hansen" and "Pettersen"?','SELECT * FROM Persons WHERE LastName BETWEEN "Hansen" AND "Pettersen"','SELECT LastName>"Hansen" AND LastName<"Pettersen" FROM Persons','SELECT * FROM Persons WHERE LastName>"Hansen" AND LastName<"Pettersen"','SELECT * FROM Persons IN LastName>"Hansen" AND LastName<"Pettersen"','SELECT * FROM Persons WHERE LastName BETWEEN "Hansen" AND "Pettersen"');
+INSERT INTO QUESTION VALUES(163,506,2,3,'Which SQL statement is used to return only different values?','SELECT DIFFERENT','SELECT DISTINCT','SELECT UNIQUE','UNIQUE','SELECT DISTINCT');
+INSERT INTO QUESTION VALUES(164,506,2,4,'Which SQL keyword is used to sort the result-set?','SORT BY','SORT','ORDER','ORDER BY','ORDER BY');
+INSERT INTO QUESTION VALUES(165,506,2,5,'With SQL, how can you return all the records from a table named "Persons" sorted descending by "FirstName"?','SELECT * FROM Persons ORDER BY FirstName DESC','SELECT * FROM Persons SORT BY "FirstName" DESC','SELECT * FROM Persons SORT "FirstName" DESC','SELECT * FROM Persons ORDER FirstName DESC','SELECT * FROM Persons ORDER BY FirstName DESC');
+INSERT INTO QUESTION VALUES(166,506,2,6,'With SQL, how can you delete the records where the "FirstName" is "Peter" in the Persons Table?','DELETE FROM Persons WHERE FirstName ="Peter"','DELETE FirstName="Peter" FROM Persons','DELETE ROW FirstName="Peter" FROM Persons','DELETE FirstName FROM Persons','DELETE FROM Persons WHERE FirstName="Peter"');
+INSERT INTO QUESTION VALUES(167,506,2,7,'With SQL, how can you return the number of records in the "Persons" table?','INSERT INTO Persons VALUES ("Jimmy", "Jackson")','INSERT VALUES ("Jimmy", "Jackson") INTO Persons','INSERT ("Jimmy", "Jackson") INTO Persons','INSERT ("Jimmy","Jackson) INTO Persons','INSERT INTO Persons VALUES ("Jimmy","Jackson")');
+INSERT INTO QUESTION VALUES(168,506,2,8,'How can you change "Hansen" into "Nilsen" in the "LastName" column in the Persons table?','UPDATE Persons SET LastName="Nilsen" WHERE LastName="Hansen"','MODIFY Persons SET LastName="Hansen" INTO LastName="Nilsen"','UPDATE Persons SET LastName="Hansen" INTO LastName="Nilsen"','MODIFY Persons SET LastName="Nilsen" WHERE LastName="Hansen"','UPDATE Persons SET LastName="Nilsen" WHERE LastName="Hansen"');
+INSERT INTO QUESTION VALUES(169,506,2,9,'With SQL, how can you delete the records where the "FirstName" is "Peter" in the Persons Table?','DELETE FROM Persons WHERE FirstName="Peter"','DELETE FirstName="Peter" FROM Persons','DELETE ROW FirstName="Peter" FROM Persons','DELETE FirstName FROM Persons','DELETE FROM Persons WHERE FirstName="Peter"');
+INSERT INTO QUESTION VALUES(170,506,2,10,'With SQL, how can you return the number of records in the "Persons" table?','SELECT COUNT(*) FROM Persons','SELECT COLUMNS(*) FROM Persons','SELECT NO(*) FROM Persons','SELECT LEN(*) FROM Persons','SELECT COUNT(*) FROM Persons');
+INSERT INTO QUESTION VALUES(171,506,3,1,'What is the most common type of join?','INNER JOIN','JOINED TABLE','INSIDE JOIN','JOINED','INNER JOIN');
+INSERT INTO QUESTION VALUES(172,506,3,2,'Which operator is used to select values within a range?','RANGE','WITHIN','BETWEEN','IN','BETWEEN');
+INSERT INTO QUESTION VALUES(173,506,3,3,'The NOT NULL constraint enforces a column to not accept NULL values','TRUE','FALSE','CANT PREDICT','NONE','TRUE');
+INSERT INTO QUESTION VALUES(174,506,3,4,'Which operator is used to search for a specified pattern in a column?','FROM','GET','LIKE','INTO','LIKE');
+INSERT INTO QUESTION VALUES(175,506,3,5,'Which SQL statement is used to create a database table called "Customers"?','CREATE TABLE Customers','CREATE DATABASE TAB Customers','CREATE DATABASE TABLE Customers','CREATE DB Customers','CREATE TABLE Customers');
+INSERT INTO QUESTION VALUES(176,506,3,6,'Which of the following query would display the full name of a student, with a column heading "select first_name, last_name as “Name” from students;"','select Name from students;','select first_name || last_name as “Name” from students;','select Name from students;','select Name from stud','select first_name || last_name as “Name” from students;');
+INSERT INTO QUESTION VALUES(177,506,3,7,'What is returned by MOD(1000,30)?','33','30','3','10','10');
+INSERT INTO QUESTION VALUES(178,506,3,8,'Which of the following is true about Cartesian Products?','A Cartesian product is formed when a join condition is omitted','A Cartesian product is formed when a join condition is valid','Some rows in the first table are joined to all rows in the second table','All rows in the first table are joined to all rows in the second table','A Cartesian product is formed when a join condition is omitted');
+INSERT INTO QUESTION VALUES(179,506,3,9,'Which of the following functions can be used on both numeric as well as non-numeric data?','COUNT','AVG','STDDEV','VARIANCE','COUNT');
+INSERT INTO QUESTION VALUES(180,506,3,10,'Which of the following statement is used to modify a sequence?','ALTER SEQUENCE','SELECT SEQUENCE','DROP SEQUENCE','None of the above','ALTER SEQUENCE');
+
+
+
+
+
+
+
+CREATE TABLE USER_OPTION(
+UO_ID NUMBER(4) PRIMARY KEY,
+USER_ID NUMBER(3) REFERENCES EXAM_USER(USER_ID),
+QUESTION_ID NUMBER(3)  REFERENCES QUESTION(QUESTION_ID),
+US_OPTION VARCHAR2(80)
+);
+
+INSERT INTO USER_OPTION VALUES(2255,101,1,'int');
+INSERT INTO USER_OPTION VALUES(2256,101,2,'java.util');
+INSERT INTO USER_OPTION VALUES(2257,101,3,'Remote interface');
+INSERT INTO USER_OPTION VALUES(2258,101,4,'strictfp');
+
+
+CREATE TABLE EXAM_RESULT(
+RESULT_ID NUMBER(5) PRIMARY KEY,
+USER_ID NUMBER(3) REFERENCES EXAM_USER(USER_ID),
+EXAM_ID NUMBER(3) REFERENCES EXAM(EXAM_ID),
+LEVEL_ID NUMBER(1) NOT NULL,
+CRCT_ANS NUMBER(2),
+INCRCT_ANS NUMBER(2),
+MARKS NUMBER(2),
+PERCENTAGE FLOAT,
+STATUS VARCHAR2(10),
+CONSTRAINT EXAM_RESULT_LEVELID_FOREIGN_KEY FOREIGN KEY(LEVEL_ID) REFERENCES EXAM_LEVEL(LEVEL_ID)
+);
+
+INSERT INTO EXAM_RESULT VALUES(33043,101,501,1,8,2,8,80,'pass');
+INSERT INTO EXAM_RESULT VALUES(33044,101,501,2,8,2,8,80,'pass');
+INSERT INTO EXAM_RESULT VALUES(33045,101,501,3,2,8,2,40,'fail');
+INSERT INTO EXAM_RESULT VALUES(33046,102,501,1,7,3,7,70,'pass');
+INSERT INTO EXAM_RESULT VALUES(33047,102,501,2,7,3,7,70,'pass');
+
+
+
+CREATE TABLE SESSION_INFO( 
+SESSION_ID NUMBER(6) PRIMARY KEY,
+USER_ID NUMBER(3) NOT NULL,
+LOGIN_TIME VARCHAR2(20),
+LOGOUT_TIME VARCHAR2(20),
+CONSTRAINT SESSION_INFO_USERID_FOREIGN_KEY FOREIGN KEY(USER_ID) REFERENCES EXAM_USER(USER_ID)
+);
+
+INSERT INTO SESSION_INFO VALUES(606111,101,'04:30:26 PM','05:04:23 PM');
+INSERT INTO SESSION_INFO VALUES(606112,102,'05:30:26 PM','06:10:22 PM');
+INSERT INTO SESSION_INFO VALUES(606113,103,'10:00:25 PM','10:34:23 AM');
+
+
+
+
+

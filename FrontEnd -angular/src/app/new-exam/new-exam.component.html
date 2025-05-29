@@ -1,0 +1,35 @@
+<body>
+	<div class="container">
+		<mat-toolbar color="primary"> <!-- matcard toor bar for show less and show more options-->
+			<span class="sub-title">choose your Exam </span>
+				<button mat-button (click)="toggleGridColumns()" > <!--we can hide this button with fxHide.lt-md-->
+					<span *ngIf="gridColumns === 4">show less</span> <!-- for showing less exams-->
+					<span *ngIf="gridColumns === 3">show more</span>  <!-- for showing more exams-->
+				</button>
+		</mat-toolbar>
+		<div class="content">
+			<div fxLayout="row wrap" fxLayoutGap="16px grid">
+				<div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let exam of tempExams">
+					<mat-card class="mat-elevation-z4" >
+						<mat-card-header>
+							<mat-card-title>{{exam.examName}}</mat-card-title>
+						</mat-card-header>
+						<img mat-card-image [src]="exam.imageUrl" />
+						<mat-card-content>
+							<p>
+								 Level 1
+							</p>
+						</mat-card-content>
+						<mat-card-actions>
+							<button (click)="getExamByName(exam.examName)"  mat-raised-button style="color:rgb(248, 248, 250);background-color: rgb(0, 81, 255);">START</button>
+							<button (click)="openDialog()" mat-button>DETAILS</button>
+						</mat-card-actions>
+					</mat-card>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="content" fxLayout="column">
+			for upgrading
+		</div> -->
+	</div>
+</body>
